@@ -41,9 +41,15 @@ class Info < ApplicationRecord
 # def normalize_card_number
 #   self.name = name.capitalize
 # end
-before_update :check_if_name_present?
-def check_if_name_present?
-  if name.present?
+# before_update :check_if_name_present?
+after_update :check_after_update
+# def check_if_name_present?
+#   if !name.present?
+#     self.name = self.last_name
+#   end
+# end
+def check_after_update
+  if !name.present?
     self.name = self.last_name
   end
 end
